@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Github API Test</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    .raw {
+        height: 300px;
+        overflow-y: scroll;
+    }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-light bg-light">
@@ -29,12 +35,13 @@
             success: function (response) {
                 $('#repos').html('')
                 response.forEach((value, index, array) => {
+                    const raw = JSON.stringify(value, null, 4)
                     const repoCard = `
                         <div class="card bg-light mt-4 repo-card" style="display: none;">
                             <h3 class="card-header">#${index + 1} ${value.name}</h3>
                             <div class="card-body">
                                 <p>Description: ${value.description}</p>
-                                <a href="${value.url}" class="btn btn-primary" target="_blank">查看</a>
+                                <pre class="raw bg-white p-3 mt-3">${raw}</pre>
                             </div>
                         </div>`
                     $('#repos').append(repoCard)
