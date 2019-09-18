@@ -1,23 +1,57 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>阿貓工具箱</title>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/index.css">
-    </head>
-    <body class="pt-4">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Github API Test</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
         <div class="container">
-            <h1>阿貓工具箱</h1>
-            <div class="card border-secondary bg-light mt-4">
-                <h3 class="card-header">刀剣乱舞</h5>
-                <div class="card-body">
-                    <h4>連隊戦活動進度表</h3>
-                    <ul>
-                        <li><a href="toukenRanbu/RegimentBattle/2019-summer.html">2019 海辺の陣</a></li>
-                    </ul>
-                </div>
-            </div>
-            <h2></h2>
+            <h1>Github API Test</h1>
         </div>
-    </body>
+    </nav>
+
+    <div class="container">
+        <h2 class="mt-5">Get all my public repos</h2>
+        <div id="repos">Loading...</div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+    $(function () {
+        $.ajax({
+            type: "get",
+            url: "https://api.github.com/users/wayneyen/repos",
+            dataType: "json",
+            success: function (response) {
+                $('#repos').html('')
+                response.forEach((value, index, array) => {
+                    const repoCard = `
+                        <div class="card bg-light mt-4 repo-card" style="display: none;">
+                            <h3 class="card-header">#${index + 1} ${value.name}</h3>
+                            <div class="card-body">
+                                <p>Description: ${value.description}</p>
+                                <a href="${value.url}" class="btn btn-primary" target="_blank">查看</a>
+                            </div>
+                        </div>`
+                    $('#repos').append(repoCard)
+
+                    var delay = 500
+                    $('.repo-card').each(function(i) {
+                        const element = $(this)
+                        setTimeout(function () {
+                            element.fadeIn('fast')
+                        }, delay)
+
+                        delay += 500
+                    })
+                })
+            }
+        });
+    })
+    </script>
+</body>
 </html>
