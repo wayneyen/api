@@ -48,9 +48,8 @@
 
                     var delay = 500
                     $('.repo-card').each(function(i) {
-                        const element = $(this)
-                        setTimeout(function () {
-                            element.fadeIn('fast')
+                        setTimeout(() => {
+                            $(this).fadeIn('fast')
                         }, delay)
 
                         delay += 500
