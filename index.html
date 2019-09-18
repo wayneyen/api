@@ -40,7 +40,7 @@
                         <div class="card bg-light mt-4 repo-card" style="display: none;">
                             <h3 class="card-header">#${index + 1} ${value.name}</h3>
                             <div class="card-body">
-                                <p>Description: ${value.description}</p>
+                                <p>Description: ${value.description || '沒有描述'}</p>
                                 <pre class="raw bg-white p-3 mt-3">${raw}</pre>
                             </div>
                         </div>`
